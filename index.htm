@@ -1,78 +1,201 @@
-body {
-  background: #0d1117;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 30px 20px;
-  font-family: 'Fira Code', monospace;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eng-Ward | profile.js</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.terminal {
-  width: 100%;
-  max-width: 780px;
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-}
+    body {
+      background: #0d1117;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 30px 20px;
+      font-family: 'Fira Code', monospace;
+    }
 
-.bar {
-  background: #161b22;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid #30363d;
-}
+    .terminal {
+      width: 100%;
+      max-width: 780px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    }
 
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot.r { background: #ff5f57; }
-.dot.y { background: #ffbd2e; }
-.dot.g { background: #28c840; }
+    .bar {
+      background: #161b22;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #30363d;
+    }
 
-.bar-title {
-  flex: 1;
-  text-align: center;
-  color: #8b949e;
-  font-size: 13px;
-}
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
 
-.body {
-  padding: 24px 28px 40px;
-}
+    .bar-title {
+      flex: 1;
+      text-align: center;
+      color: #8b949e;
+      font-size: 13px;
+    }
 
-.line {
-  font-size: 14px;
-  line-height: 1.9;
-  min-height: 1.9em;
-}
+    .body {
+      padding: 24px 28px 40px;
+    }
 
-/* syntax colors */
-.kw     { color: #ff7b72; }   /* keyword: const, node, console */
-.fn     { color: #d2a8ff; }   /* function name */
-.str    { color: #a5d6ff; }   /* string value */
-.val    { color: #79c0ff; }   /* numbers / booleans */
-.key    { color: #ffa657; }   /* object key */
-.cm     { color: #8b949e; }   /* comment */
-.sym    { color: #e6edf3; }   /* punctuation */
-.out    { color: #3fb950; }   /* console output */
-.arrow  { color: #58a6ff; }   /* > prompt */
-.muted  { color: #6e7681; }
-.warn   { color: #e3b341; }
-.err    { color: #ff7b72; }
+    .line {
+      font-size: 14px;
+      line-height: 1.9;
+      min-height: 1.9em;
+    }
 
-.cursor {
-  display: inline-block;
-  width: 9px;
-  height: 15px;
-  background: #58a6ff;
-  vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
-}
+    /* syntax colors */
+    .kw     { color: #ff7b72; }   /* keyword: const, node, console */
+    .fn     { color: #d2a8ff; }   /* function name */
+    .str    { color: #a5d6ff; }   /* string value */
+    .val    { color: #79c0ff; }   /* numbers / booleans */
+    .key    { color: #ffa657; }   /* object key */
+    .cm     { color: #8b949e; }   /* comment */
+    .sym    { color: #e6edf3; }   /* punctuation */
+    .out    { color: #3fb950; }   /* console output */
+    .arrow  { color: #58a6ff; }   /* > prompt */
+    .muted  { color: #6e7681; }
+    .warn   { color: #e3b341; }
+    .err    { color: #ff7b72; }
 
-@keyframes blink {
-  0%,100% { opacity:1; }
-  50%      { opacity:0; }
-}
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 15px;
+      background: #58a6ff;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity:1; }
+      50%      { opacity:0; }
+    }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="bar">
+    <div class="dot r"></div>
+    <div class="dot y"></div>
+    <div class="dot g"></div>
+    <span class="bar-title">node profile.js</span>
+  </div>
+  <div class="body" id="out"></div>
+</div>
+
+<script>
+const LINES = [
+
+  /* --- run command --- */
+  { d: 0,    h: `<div class="line"><span class="arrow">❯</span> <span class="sym">node profile.js</span></div>` },
+  { d: 600,  h: `<div class="line"></div>` },
+
+  /* --- file header comment --- */
+  { d: 800,  h: `<div class="line"><span class="cm">// ─────────────────────────────────────────</span></div>` },
+  { d: 900,  h: `<div class="line"><span class="cm">//  profile.js — Ward Barghouthi</span></div>` },
+  { d: 1000, h: `<div class="line"><span class="cm">// ─────────────────────────────────────────</span></div>` },
+  { d: 1100, h: `<div class="line"></div>` },
+
+  /* --- about object --- */
+  { d: 1300, h: `<div class="line"><span class="kw">const</span> <span class="key">about</span> <span class="sym">= {</span></div>` },
+  { d: 1550, h: `<div class="line">  <span class="key">name</span><span class="sym">:</span>     <span class="str">"Ward Barghouthi"</span><span class="sym">,</span></div>` },
+  { d: 1750, h: `<div class="line">  <span class="key">age</span><span class="sym">:</span>      <span class="val">21</span><span class="sym">,</span></div>` },
+  { d: 1950, h: `<div class="line">  <span class="key">title</span><span class="sym">:</span>    <span class="str">"CS Graduate | Aspiring Cyber Pro"</span><span class="sym">,</span></div>` },
+  { d: 2150, h: `<div class="line">  <span class="key">location</span><span class="sym">:</span> <span class="str">"Ramallah, Palestine 🇵🇸"</span><span class="sym">,</span></div>` },
+  { d: 2350, h: `<div class="line">  <span class="key">status</span><span class="sym">:</span>   <span class="str">"Open to opportunities"</span></div>` },
+  { d: 2500, h: `<div class="line"><span class="sym">};</span></div>` },
+  { d: 2600, h: `<div class="line"></div>` },
+
+  /* --- console.log about --- */
+  { d: 2800, h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"👤 About:"</span><span class="sym">, about);</span></div>` },
+  { d: 3100, h: `<div class="line"><span class="out">👤 About: { name: 'Ward Barghouthi', age: 21, location: 'Ramallah 🇵🇸' }</span></div>` },
+  { d: 3200, h: `<div class="line"></div>` },
+
+  /* --- education --- */
+  { d: 3400, h: `<div class="line"><span class="kw">const</span> <span class="key">education</span> <span class="sym">= {</span></div>` },
+  { d: 3600, h: `<div class="line">  <span class="key">degree</span><span class="sym">:</span>     <span class="str">"BSc Computer Science"</span><span class="sym">,</span></div>` },
+  { d: 3800, h: `<div class="line">  <span class="key">university</span><span class="sym">:</span> <span class="str">"Birzeit University"</span><span class="sym">,</span></div>` },
+  { d: 4000, h: `<div class="line">  <span class="key">status</span><span class="sym">:</span>     <span class="str">"🎓 Completed"</span></div>` },
+  { d: 4150, h: `<div class="line"><span class="sym">};</span></div>` },
+  { d: 4250, h: `<div class="line"></div>` },
+
+  { d: 4400, h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"🎓 Education:"</span><span class="sym">, education);</span></div>` },
+  { d: 4700, h: `<div class="line"><span class="out">🎓 Education: { degree: 'BSc Computer Science', university: 'Birzeit University', status: '🎓 Completed' }</span></div>` },
+  { d: 4800, h: `<div class="line"></div>` },
+
+  /* --- certificates --- */
+  { d: 5000, h: `<div class="line"><span class="kw">const</span> <span class="key">certificates</span> <span class="sym">= [];</span> <span class="cm">// empty for now...</span></div>` },
+  { d: 5200, h: `<div class="line"></div>` },
+  { d: 5350, h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"📜 Certificates:"</span><span class="sym">, certificates);</span></div>` },
+  { d: 5600, h: `<div class="line"><span class="out">📜 Certificates: []</span></div>` },
+  { d: 5700, h: `<div class="line"><span class="warn">⚠  No certificates yet — roadmap incoming...</span></div>` },
+  { d: 5800, h: `<div class="line"></div>` },
+
+  /* --- roadmap --- */
+  { d: 6000, h: `<div class="line"><span class="kw">const</span> <span class="key">roadmap</span> <span class="sym">= [</span></div>` },
+  { d: 6150, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">1</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"CompTIA Security+"</span><span class="sym">,</span>  <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 6300, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">1</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"CompTIA Network+"</span><span class="sym">,</span>   <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 6450, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">2</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"CEH"</span><span class="sym">,</span>               <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 6600, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">2</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"eJPT / eCPPT"</span><span class="sym">,</span>      <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 6750, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">3</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"OSCP"</span><span class="sym">,</span>              <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 6900, h: `<div class="line">  <span class="sym">{</span> <span class="key">phase</span><span class="sym">:</span> <span class="val">3</span><span class="sym">,</span> <span class="key">cert</span><span class="sym">:</span> <span class="str">"CISSP"</span><span class="sym">,</span>             <span class="key">done</span><span class="sym">:</span> <span class="val">false</span> <span class="sym">},</span></div>` },
+  { d: 7050, h: `<div class="line"><span class="sym">];</span></div>` },
+  { d: 7150, h: `<div class="line"></div>` },
+
+  { d: 7300, h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"🗺️  Roadmap:"</span><span class="sym">);</span></div>` },
+  { d: 7550, h: `<div class="line"><span class="kw">roadmap</span><span class="sym">.</span><span class="fn">forEach</span><span class="sym">(</span><span class="kw">r</span> <span class="sym">=></span> <span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">\`  Phase \${r.phase} → \${r.cert}\`</span><span class="sym">));</span></div>` },
+  { d: 7900, h: `<div class="line"><span class="out">  Phase 1 → CompTIA Security+</span></div>` },
+  { d: 8050, h: `<div class="line"><span class="out">  Phase 1 → CompTIA Network+</span></div>` },
+  { d: 8200, h: `<div class="line"><span class="out">  Phase 2 → CEH</span></div>` },
+  { d: 8350, h: `<div class="line"><span class="out">  Phase 2 → eJPT / eCPPT</span></div>` },
+  { d: 8500, h: `<div class="line"><span class="out">  Phase 3 → OSCP</span></div>` },
+  { d: 8650, h: `<div class="line"><span class="out">  Phase 3 → CISSP</span></div>` },
+  { d: 8750, h: `<div class="line"></div>` },
+
+  /* --- interests --- */
+  { d: 8900, h: `<div class="line"><span class="kw">const</span> <span class="key">interests</span> <span class="sym">= [</span></div>` },
+  { d: 9050, h: `<div class="line">  <span class="str">"🛡️ Ethical Hacking"</span><span class="sym">,</span> <span class="str">"🔍 Penetration Testing"</span><span class="sym">,</span></div>` },
+  { d: 9200, h: `<div class="line">  <span class="str">"🌐 Network Security"</span><span class="sym">,</span> <span class="str">"🔐 Cryptography"</span><span class="sym">,</span> <span class="str">"🧠 CTF Challenges"</span></div>` },
+  { d: 9350, h: `<div class="line"><span class="sym">];</span></div>` },
+  { d: 9450, h: `<div class="line"></div>` },
+
+  { d: 9600, h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"💡 Interests:"</span><span class="sym">, interests);</span></div>` },
+  { d: 9900, h: `<div class="line"><span class="out">💡 Interests: [ '🛡️ Ethical Hacking', '🔍 Penetration Testing', '🌐 Network Security', '🔐 Cryptography', '🧠 CTF' ]</span></div>` },
+  { d: 10000,h: `<div class="line"></div>` },
+
+  /* --- final message --- */
+  { d: 10200,h: `<div class="line"><span class="fn">console</span><span class="sym">.</span><span class="fn">log</span><span class="sym">(</span><span class="str">"\\n🚀 Process complete. Ward is ready to hack the world."</span><span class="sym">);</span></div>` },
+  { d: 10600,h: `<div class="line"><span class="out">🚀 Process complete. Ward is ready to hack the world.</span></div>` },
+  { d: 10700,h: `<div class="line"></div>` },
+
+  /* --- blinking cursor --- */
+  { d: 10900,h: `<div class="line"><span class="arrow">❯</span> <span class="cursor"></span></div>` },
+];
+
+const out = document.getElementById('out');
+
+LINES.forEach(({ d, h }) => {
+  setTimeout(() => {
+    out.insertAdjacentHTML('beforeend', h);
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, d);
+});
+</script>
+</body>
+</html>
